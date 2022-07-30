@@ -1,17 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { useEffect } from 'react';
+
 const REQUEST_GREETING = 'REQUEST_GREETING';
 const LOAD_GREETING = 'LOAD_GREETING';
 const GREETING_FAILED = 'GREETING_FAILED';
 
 const getGreeting = () => (dispatch) => {
   dispatch({ type: REQUEST_GREETING });
-  fetch(`api/messages`)
+  fetch('api/messages')
     .then((response) => response.json())
     .then((result) => dispatch({ type: LOAD_GREETING, payload: result }))
-    .catch((error) => dispatch({ type: LOAD_GREETING, payload: error }));
+    .catch((error) => dispatch({ type: GREETING_FAILED, payload: error }));
 };
 
 const Greeting = () => {
