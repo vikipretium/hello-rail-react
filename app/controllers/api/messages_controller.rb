@@ -2,6 +2,6 @@ class Api::MessagesController < ApplicationController
 	def index
 		random_message = Message.all.sample
 		greeting = random_message.message
-		puts greeting
+		render json: {greeting: greeting}.to_json
 	end	
 end
